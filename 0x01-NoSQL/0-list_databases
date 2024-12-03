@@ -1,0 +1,2 @@
+mongo --eval "printjson(db.adminCommand('listDatabases'))"
+
