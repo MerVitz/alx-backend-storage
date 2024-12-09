@@ -1,2 +1,2 @@
-//my comment
-db.school.find({ name: "ALX" }).forEach(doc => printjson(doc));
+// my comment
+db.school.find({ name: "ALX" }).forEach(printjson);

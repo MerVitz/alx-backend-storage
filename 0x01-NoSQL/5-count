@@ -1,2 +1,2 @@
-//my comment
-print(db.school.countDocuments());
+// my comment
+db.school.count()
