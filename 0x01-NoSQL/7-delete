@@ -1,0 +1,2 @@
+//my comment
+db.school.deleteMany({ name: "ALX School" });
