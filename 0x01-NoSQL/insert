@@ -1,0 +1,7 @@
+db.school.insertMany([
+  { name: "ALX" },
+  { name: "Holberton" },
+  { name: "ALX", address: "123 Main St" },
+  { name: "ALX", address: "456 Elm St" }
+]);
+
