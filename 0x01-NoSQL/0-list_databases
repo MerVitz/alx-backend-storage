@@ -1,2 +1,2 @@
-mongo --eval "printjson(db.adminCommand('listDatabases'))"
-
+// my comment
+show dbs;
