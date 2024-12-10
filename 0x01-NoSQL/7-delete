@@ -1,2 +1,5 @@
 // my comment
-db.school.deleteMany({ name: /ALX School/i }); // Delete all documents with name "ALX School", case-insensitive
+db.school.deleteMany(
+    { name: /ALX School/i },  // Using regex for case-insensitive matching of "ALX School"
+    { multi: true }  // Ensure it deletes multiple documents if necessary
+);
