@@ -1,6 +1,6 @@
 // Script to update documents in the collection
 db.school.update(
-    { name: /Holberton/i },   // Using regular expression to match "Holberton" case-insensitively
-    { $set: { address: "972 Mission street" } }
+    { name: /Holberton/i },
+    { $set: { address: "972 Mission street" } },
+    { multi: true }
 );
-
