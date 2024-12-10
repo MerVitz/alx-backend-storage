@@ -1,6 +1,5 @@
 // Script to update documents in the collection
-db = db.getSiblingDB("my_db");
-db.school.updateMany(
+db.school.update(
   { name: "Holberton" },
   { $set: { address: "972 Mission street" } }
 );
