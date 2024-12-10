@@ -1,6 +1,2 @@
 // my comment
-db.school.deleteMany({}); // Ensure the collection is empty
-db.school.insertOne({ name: "ALX School", location: "Nairobi" }); // Insert one document to match
-db.school.deleteMany({ name: "ALX School" }); // Delete the matching document
-db.school.find().pretty(); // Verify collection is empty after deletion
-
+db.school.deleteMany({ name: "ALX School" }); // Delete all documents with name "ALX School"
