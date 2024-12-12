@@ -25,7 +25,7 @@ def get_page(url: str) -> str:
     cache_key = f"cache:{url}"
     count_key = f"count:{url}"
 
-    # Increment access count every time the function is called
+    # Increment access count explicitly
     r.incr(count_key)
 
     # Check if content is cached
@@ -56,25 +56,3 @@ def get_count(url: str) -> int:
     count_key = f"count:{url}"
     count = r.get(count_key)
     return int(count) if count else 0
-
-
-if __name__ == "__main__":
-    # Example usage
-    test_url = "http://slowwly.robertomurray.co.uk/delay/5000/url/http://www.google.com"
-
-    print("Fetching URL content...")
-    print(get_page(test_url))  # First fetch (from the web)
-
-    print("\nFetching again (should use cache)...")
-    print(get_page(test_url))  # Second fetch (from cache)
-
-    print("\nAccess count:")
-    print(get_count(test_url))  # Should increment on each call
-
-    # Wait for cache expiration (10 seconds)
-    import time
-    print("\nWaiting for 10 seconds...")
-    time.sleep(10)
-
-    print("\nFetching again (cache expired, fetch from web)...")
-    print(get_page(test_url))
