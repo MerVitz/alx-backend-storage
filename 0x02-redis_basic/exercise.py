@@ -79,7 +79,8 @@ def replay(method: Callable):
     print(f"{method.__qualname__} was called {len(inputs)} times:")
 
     for inp, out in zip(inputs, outputs):
-        print(f"{method.__qualname__}(*{inp.decode('utf-8')}) -> {out.decode('utf-8')}")
+        print(f"{method.__qualname__}(*{inp.decode('utf-8')})
+                -> {out.decode('utf-8')}")
 
 
 class Cache:
@@ -110,7 +111,8 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Callable = None) -> Union[str, bytes, int, float, None]:
+    def get(self, key: str, fn: Callable = None)
+    -> Union[str, bytes, int, float, None]:
         """
         Retrieve data from Redis and optionally convert it.
 
@@ -147,4 +149,3 @@ class Cache:
             The retrieved data as an integer.
         """
         return self.get(key, int)
-
