@@ -7,57 +7,50 @@ import redis
 import requests
 from typing import Callable
 
-class Cache:
+r = redis.Redis()
+
+
+def get_page(url: str) -> str:
     """
-    Cache class for web content caching and access tracking.
+    Fetch the content of a URL and cache it in Redis for 10 seconds.
+
+    Args:
+        url: The URL to fetch.
+
+    Returns:
+        The HTML content of the URL.
     """
+    # Check if the URL is cached
+    cache_key = f"cache:{url}"
+    cached_content = r.get(cache_key)
 
-    def __init__(self):
-        """
-        Initialize Redis connection.
-        """
-        self._redis = redis.Redis()
+    if cached_content:
+        return cached_content.decode("utf-8")
 
-    def get_page(self, url: str) -> str:
-        """
-        Retrieve a web page and cache it.
+    # Fetch the URL content if not cached
+    response = requests.get(url)
+    html_content = response.text
 
-        Args:
-            url: The URL to fetch.
+    # Cache the content with a 10-second expiration
+    r.setex(cache_key, 10, html_content)
 
-        Returns:
-            The HTML content of the page.
-        """
-        # Check if the URL is cached
-        cache_key = f"cache:{url}"
-        cached_content = self._redis.get(cache_key)
-        if cached_content:
-            return cached_content.decode("utf-8")
+    # Increment access count
+    count_key = f"count:{url}"
+    r.incr(count_key)
 
-        # Fetch the content if not cached
-        response = requests.get(url)
-        html_content = response.text
+    return html_content
 
-        # Cache the content with expiration time of 10 seconds
-        self._redis.setex(cache_key, 10, html_content)
 
-        # Increment access count
-        count_key = f"count:{url}"
-        self._redis.incr(count_key)
+def get_count(url: str) -> int:
+    """
+    Get the access count of a URL.
 
-        return html_content
+    Args:
+        url: The URL to check.
 
-    def get_access_count(self, url: str) -> int:
-        """
-        Get the access count of a URL.
-
-        Args:
-            url: The URL to check.
-
-        Returns:
-            The number of times the URL was accessed.
-        """
-        count_key = f"count:{url}"
-        count = self._redis.get(count_key)
-        return int(count) if count else 0
-
+    Returns:
+        The number of times the URL has been accessed.
+    """
+    count_key = f"count:{url}"
+    count = r.get(count_key)
+    return int(count) if count else 0
