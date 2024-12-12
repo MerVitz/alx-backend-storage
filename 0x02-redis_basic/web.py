@@ -79,4 +79,3 @@ if __name__ == "__main__":
 
     print("\nFetching again (cache expired, fetch from web)...")
     print(get_page(test_url))
-
