@@ -8,7 +8,6 @@ from typing import Union, Callable
 from uuid import uuid4
 from functools import wraps
 
-
 def count_calls(method: Callable) -> Callable:
     """
     Decorator to count the number of calls to a method.
@@ -29,7 +28,6 @@ def count_calls(method: Callable) -> Callable:
         return method(self, *args, **kwargs)
 
     return wrapper
-
 
 def call_history(method: Callable) -> Callable:
     """
@@ -61,7 +59,6 @@ def call_history(method: Callable) -> Callable:
 
     return wrapper
 
-
 def replay(method: Callable):
     """
     Display the history of calls to a particular method.
@@ -80,7 +77,6 @@ def replay(method: Callable):
 
     for inp, out in zip(inputs, outputs):
         print(f"{method.__qualname__}(*{inp.decode('utf-8')}) -> {out.decode('utf-8')}")
-
 
 class Cache:
     """
@@ -147,3 +143,4 @@ class Cache:
             The retrieved data as an integer.
         """
         return self.get(key, int)
+
